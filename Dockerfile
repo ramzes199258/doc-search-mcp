@@ -11,11 +11,8 @@ WORKDIR /app
 # Копируем requirements
 COPY requirements.txt .
 
-# Этап 1: Устанавливаем MCP отдельно (самая капризная библиотека)
-RUN pip install --no-cache-dir mcp==1.25.0 pydantic==2.10.6 pydantic-settings==2.7.1
-
-# Этап 2: Устанавливаем всё остальное
-RUN pip install --no-cache-dir --no-deps -r requirements.txt
+# Устанавливаем ВСЁ сразу одной командой (pip сам разрешит зависимости)
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Копируем код
 COPY server.py .
